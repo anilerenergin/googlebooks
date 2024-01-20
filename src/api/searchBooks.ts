@@ -1,6 +1,6 @@
 import { Book } from "../types/book";
 
-async function searchBooks(searchTerm: string, startIndex: number, maxResults: number): Promise<Book[]> {
+async function searchRequest(searchTerm: string, startIndex: number, maxResults: number): Promise<Book[]> {
     try {
       const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&startIndex=${startIndex}&maxResults=${maxResults}`);
       
@@ -32,4 +32,4 @@ async function searchBooks(searchTerm: string, startIndex: number, maxResults: n
       throw error;
     }
   }
-  export default searchBooks;
+  export default searchRequest;
