@@ -68,7 +68,7 @@ interface SearchInfo {
   textSnippet: string;
 }
 
-interface Book {
+type Book = {
   kind: string;
   id: string;
   etag: string;
@@ -79,7 +79,7 @@ interface Book {
   searchInfo: SearchInfo;
 }
 
-interface SearchBookType {
+type SearchBookType = {
   totalItems: number;
   items: Book[];
 }

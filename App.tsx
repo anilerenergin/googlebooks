@@ -1,13 +1,14 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import BookRequest from './src/screens/SearchScreen';
+import SearchScreen from './src/screens/SearchScreen';
 import { Provider } from 'react-redux';
+import store from './src/store/store';
 
 const App: React.FC = () => {
   return (
-       <View>
-        <BookRequest />
-      </View>
+       <Provider store={store} >
+        <SearchScreen />
+      </Provider>
   );
 };
 
