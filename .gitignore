@@ -1,0 +1,37 @@
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Node.js
+node_modules/
+
+# TypeScript
+*.tsbuildinfo
+
+# React Native
+android/
+ios/
+*.log
+
+# IDE
+.vscode/
+
+# npm
+npm-debug.log
+yarn-error.log
+
+# Build files
+/dist/
+/build/
+/out/
+
+# Dependency directories
+/bower_components/
+
+# Miscellaneous
+*.bak
+*.swp
+*.swo
+*~
+.DS_Store?
+.vscode/
