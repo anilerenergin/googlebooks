@@ -29,6 +29,7 @@ const SearchScreen: React.FC = () => {
       console.error('Error fetching books:', error);
     } finally {
       setLoading(false);
+      flatListRef.current?.scrollToIndex({ index: 0 });
     }
   };
   const handleLoadMore = async () => {
@@ -48,12 +49,32 @@ const SearchScreen: React.FC = () => {
   const flatListRef = useRef<FlatList>(null);
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>Google Books</Text>
+      <View style={styles.google}>
+      <Text style={{color:"#4285F4",    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,}}>G</Text>
+      <Text style={{color:"#DB4437",    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,}}>o</Text>
+      <Text style={{color:"#F4B400",    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,}}>o</Text>
+      <Text style={{color:"#4285F4",    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,}}>g</Text>
+      <Text style={{color:"#0F9D58",    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,}}>l</Text>
+      <Text style={{color:"#DB4437",    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,}}>e</Text>
+      <Text style={styles.header}> Books</Text>
+      </View>
       <View style={styles.searchContainer}>
         <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} onSearchPress={handleSearch} />
       </View>
       <FlatList
-        ref={flatListRef}
+        ref={flatListRef} 
         data={state.books}
         keyExtractor={(item) => item.id}
         renderItem={bookList}
@@ -80,6 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   header: {
+    color:  "#4285F4",
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
@@ -88,6 +110,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 16,
     padding: 16,
+  },
+  google: {
+
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    flexDirection: 'row',
   },
 });
 
