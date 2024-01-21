@@ -1,15 +1,21 @@
-import React from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import React, { useState } from 'react';
+import {View, Text, Image, TouchableOpacity, StyleSheet, Button} from 'react-native';
 import {ScreenWidth} from 'react-native-elements/dist/helpers';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface BookCardProps {
   book: Book;
 }
 
 const BookCard: React.FC<BookCardProps> = ({book}) => {
+  const [saved, setSaved] = useState(false);
+  const toggleSaved = () => {
+    setSaved((prevSaved) => !prevSaved);
+  };
   return (
     <TouchableOpacity>
       <View style={styles.bookContainer}>
+        
         {book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail && (
           <Image
             source={{uri: book.volumeInfo.imageLinks.thumbnail}}
@@ -19,6 +25,13 @@ const BookCard: React.FC<BookCardProps> = ({book}) => {
             }
           />
         )}
+
+
+         <TouchableOpacity  style={styles.saveIcon} onPress={toggleSaved}>
+           {saved?<Icon name='bookmark' style={styles.saveIcon} />:<Icon name='bookmark-o' style={styles.saveIcon} />}
+         </TouchableOpacity>
+
+
         <View style={styles.bookDetails}>
           <Text style={styles.bookTitle}>{book.volumeInfo.title}</Text>
           {book.volumeInfo.authors && (
@@ -26,6 +39,7 @@ const BookCard: React.FC<BookCardProps> = ({book}) => {
               {book.volumeInfo.authors.join(', ')}
             </Text>
           )}
+
           <Text style={styles.bookPublishedDate}>
             {book.volumeInfo.publishedDate}
           </Text>
@@ -63,6 +77,13 @@ const styles = StyleSheet.create({
   },
   bookDetails: {
     flex: 1,
+  },
+  saveIcon: {
+    position:'absolute',
+    top:10,
+    right:10,
+    fontSize:20,
+    color:"#0F9D58"
   },
 });
 

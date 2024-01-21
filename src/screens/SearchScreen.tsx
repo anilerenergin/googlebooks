@@ -8,6 +8,7 @@ import { searchBooks } from '../api/searchBooks';
 import { ActivityIndicator } from 'react-native';
 import { setBooks } from '../store/actions';
 import bookReducer from '../store/reducers';
+import Icon from 'react-native-vector-icons/Ionicons';
 const initialState = {
   books: [],
   loading: false,
@@ -49,7 +50,10 @@ const SearchScreen: React.FC = () => {
   const flatListRef = useRef<FlatList>(null);
   return (
     <SafeAreaView style={styles.container}>
+       
+     
       <View style={styles.google}>
+      <Icon name='library' style={styles.savedBooks} />
       <Text style={{color:"#4285F4",    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,}}>G</Text>
@@ -69,7 +73,10 @@ const SearchScreen: React.FC = () => {
     fontWeight: 'bold',
     marginBottom: 16,}}>e</Text>
       <Text style={styles.header}> Books</Text>
+    
+   
       </View>
+   
       <View style={styles.searchContainer}>
         <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} onSearchPress={handleSearch} />
       </View>
@@ -100,6 +107,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  savedBooks: {
+fontSize:25,
+position:'absolute',
+ right:10,
+ color:'#0F9D58'
+  },
   header: {
     color:  "#4285F4",
     fontSize: 24,
@@ -113,9 +126,9 @@ const styles = StyleSheet.create({
   },
   google: {
 
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
+    width:ScreenWidth,
+    alignContent: 'center',
+    justifyContent: 'center',
     flexDirection: 'row',
   },
 });
