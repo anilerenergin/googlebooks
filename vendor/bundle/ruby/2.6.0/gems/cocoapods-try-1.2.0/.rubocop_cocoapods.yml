@@ -126,4 +126,3 @@ Lint/UselessComparison:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
-

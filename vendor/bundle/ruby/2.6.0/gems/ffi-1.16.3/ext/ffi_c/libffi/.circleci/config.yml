@@ -30,7 +30,7 @@ jobs:
       wasm-bigint:
         description: Should we build with wasm-bigint?
         type: string
-        default: ""
+        default: ''
     environment:
       WASM_BIGINT: << parameters.wasm-bigint >>
     <<: *defaults
@@ -90,7 +90,7 @@ jobs:
       params:
         description: Parameters to node-tests
         type: string
-        default: ""
+        default: ''
 
     <<: *defaults
     steps:
@@ -118,7 +118,7 @@ workflows:
 
       - build:
           name: build-bigint
-          wasm-bigint: "true"
+          wasm-bigint: 'true'
           requires:
             - install-emsdk
 

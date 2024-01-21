@@ -26,8 +26,8 @@ environment:
     CYG_MIRROR: http://mirrors.kernel.org/sourceware/cygwin/
     VSVER: 15
   matrix:
-    - SHARED_ARG: "--enable-shared --disable-static"
-    - SHARED_ARG: "--enable-static --disable-shared"
+    - SHARED_ARG: '--enable-shared --disable-static'
+    - SHARED_ARG: '--enable-static --disable-shared'
 
 install:
   - ps: >-
@@ -78,7 +78,6 @@ build_script:
   - c:\cygwin64\bin\sh -lc "(cd $OLDPWD; cp $HOST/.libs/libffi.lib $HOST/testsuite/libffi-8.lib || true)"
   - c:\cygwin64\bin\sh -lc "(cd $OLDPWD; cp `find . -name 'libffi-?.dll'` $HOST/testsuite/ || true)"
   - c:\cygwin64\bin\sh -lc "(cd $OLDPWD; TERM=none make check RUNTESTFLAGS='-v -v -v -v --target '$HOST  DEJAGNU=$PWD/.appveyor/site.exp SITEDIR=$PWD/.appveyor)"
-
 
 on_finish:
   - c:\cygwin64\bin\sh -lc "(cd $OLDPWD; cat `find ./ -name libffi.log`)"

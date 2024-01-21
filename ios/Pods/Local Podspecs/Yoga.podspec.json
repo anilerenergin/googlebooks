@@ -78,7 +78,5 @@
     "yoga/debug/Log.h",
     "yoga/debug/NodeToString.h"
   ],
-  "preserve_paths": [
-    "yoga/**/*.h"
-  ]
+  "preserve_paths": ["yoga/**/*.h"]
 }
