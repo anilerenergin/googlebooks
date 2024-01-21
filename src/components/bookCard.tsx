@@ -1,36 +1,83 @@
-import React, { useState } from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet, Button} from 'react-native';
-import {ScreenWidth} from 'react-native-elements/dist/helpers';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { ScreenWidth } from 'react-native-elements/dist/helpers';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 interface BookCardProps {
   book: Book;
 }
 
-const BookCard: React.FC<BookCardProps> = ({book}) => {
+const BookCard: React.FC<BookCardProps> = ({ book }) => {
   const [saved, setSaved] = useState(false);
-  const toggleSaved = () => {
-    setSaved((prevSaved) => !prevSaved);
-  };
-  return (
-    <TouchableOpacity>
-      <View style={styles.bookContainer}>
+
+
+  const navigation = useNavigation<StackNavigationProp<ParamListBase, string>>();
+  useEffect(() => {
+    loadSavedBooks();
+  }, []);
+
+  const loadSavedBooks = async () => {
+    try {
+      const savedBooks = await AsyncStorage.getItem('savedBooks');
+      if (savedBooks) {
+        const savedBooksList = JSON.parse(savedBooks);
         
+        setSaved(savedBooksList.includes(book.id));
+      }
+    } catch (error) {
+      console.error('Error loading saved books:', error);
+    }
+  };
+
+  const saveBook = async () => {
+    try {
+      
+      const savedBooks = (await AsyncStorage.getItem('savedBooks')) || '[]';
+      const savedBooksList = JSON.parse(savedBooks);
+
+      
+      setSaved((prevSaved) => !prevSaved);
+
+      if (saved) {
+        
+        const updatedSavedBooks = savedBooksList.filter((id: string) => id !== book.id);
+        await AsyncStorage.setItem('savedBooks', JSON.stringify(updatedSavedBooks));
+      } else {
+      
+        await AsyncStorage.setItem('savedBooks', JSON.stringify([...savedBooksList, book.id]));
+      }
+    } catch (error) {
+      console.error('Error saving book:', error);
+    }
+  };
+  const navigateToSingleBook = () => {
+    navigation.navigate("Book Detail",{book:book});
+  } 
+  return (
+    <TouchableOpacity onPress={()=>{
+      navigateToSingleBook();
+      
+    }}>
+      <View style={styles.bookContainer}>
         {book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail && (
           <Image
-            source={{uri: book.volumeInfo.imageLinks.thumbnail}}
+          source={{ uri: book.volumeInfo.imageLinks?.thumbnail.replace('http://', 'https://') }} 
             style={styles.bookImage}
-            onError={error =>
+            onError={(error) =>
               console.error('Error loading image:', error.nativeEvent.error)
             }
           />
         )}
 
-
-         <TouchableOpacity  style={styles.saveIcon} onPress={toggleSaved}>
-           {saved?<Icon name='bookmark' style={styles.saveIcon} />:<Icon name='bookmark-o' style={styles.saveIcon} />}
-         </TouchableOpacity>
-
+        <TouchableOpacity style={styles.saveIcon} onPress={saveBook}>
+          {saved ? (
+            <Icon name="bookmark" style={styles.saveIcon} />
+          ) : (
+            <Icon name="bookmark-o" style={styles.saveIcon} />
+          )}
+        </TouchableOpacity>
 
         <View style={styles.bookDetails}>
           <Text style={styles.bookTitle}>{book.volumeInfo.title}</Text>
@@ -59,6 +106,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   bookTitle: {
+    width:ScreenWidth*0.7,
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 4,
@@ -86,5 +134,6 @@ const styles = StyleSheet.create({
     color:"#0F9D58"
   },
 });
+
 
 export default BookCard;

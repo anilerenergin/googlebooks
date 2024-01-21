@@ -11,6 +11,10 @@ interface ReadingModes {
 interface ImageLinks {
   smallThumbnail: string;
   thumbnail: string;
+  small: string;
+  medium: string;
+  large: string;
+  extralarge: string;
 }
 
 interface VolumeInfo {
@@ -77,9 +81,13 @@ type Book = {
   saleInfo: SaleInfo;
   accessInfo: AccessInfo;
   searchInfo: SearchInfo;
-}
+};
 
 type SearchBookType = {
   totalItems: number;
   items: Book[];
-}
+};
+type RootStackParamList = {
+  SearchScreen: undefined;
+  SingleBookScreen: { book: Book };
+};

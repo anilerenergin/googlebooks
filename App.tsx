@@ -1,14 +1,22 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
 import SearchScreen from './src/screens/SearchScreen';
-import { Provider } from 'react-redux';
-import store from './src/store/store';
 
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import BookDetailScreen from './src/screens/BookDetailScreen';
+const Stack = createNativeStackNavigator();
 const App: React.FC = () => {
   return (
-       <Provider store={store} >
-        <SearchScreen />
-      </Provider>
+   <NavigationContainer>
+     <Stack.Navigator initialRouteName='Search Screen'>
+        <Stack.Screen name="Search Screen"
+          component={SearchScreen} options={{ headerShown: false}}>
+        </Stack.Screen>
+        <Stack.Screen name="Book Detail"
+          component={BookDetailScreen} options={{ headerShown: false}}>
+        </Stack.Screen>
+     </Stack.Navigator>
+   </NavigationContainer>
   );
 };
 

@@ -9,6 +9,8 @@ import { ActivityIndicator } from 'react-native';
 import { setBooks } from '../store/actions';
 import bookReducer from '../store/reducers';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Provider } from 'react-redux';
+import store from '../store/store';
 const initialState = {
   books: [],
   loading: false,
@@ -49,52 +51,54 @@ const SearchScreen: React.FC = () => {
   const bookList = ({ item }: { item: Book }) => <BookCard book={item}></BookCard>;
   const flatListRef = useRef<FlatList>(null);
   return (
-    <SafeAreaView style={styles.container}>
+   <Provider store={store}>
+     <SafeAreaView style={styles.container}>
        
      
-      <View style={styles.google}>
-      <Icon name='library' style={styles.savedBooks} />
-      <Text style={{color:"#4285F4",    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,}}>G</Text>
-      <Text style={{color:"#DB4437",    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,}}>o</Text>
-      <Text style={{color:"#F4B400",    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,}}>o</Text>
-      <Text style={{color:"#4285F4",    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,}}>g</Text>
-      <Text style={{color:"#0F9D58",    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,}}>l</Text>
-      <Text style={{color:"#DB4437",    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,}}>e</Text>
-      <Text style={styles.header}> Books</Text>
+       <View style={styles.google}>
+       <Icon name='library' style={styles.savedBooks} />
+       <Text style={{color:"#4285F4",    fontSize: 24,
+     fontWeight: 'bold',
+     marginBottom: 16,}}>G</Text>
+       <Text style={{color:"#DB4437",    fontSize: 24,
+     fontWeight: 'bold',
+     marginBottom: 16,}}>o</Text>
+       <Text style={{color:"#F4B400",    fontSize: 24,
+     fontWeight: 'bold',
+     marginBottom: 16,}}>o</Text>
+       <Text style={{color:"#4285F4",    fontSize: 24,
+     fontWeight: 'bold',
+     marginBottom: 16,}}>g</Text>
+       <Text style={{color:"#0F9D58",    fontSize: 24,
+     fontWeight: 'bold',
+     marginBottom: 16,}}>l</Text>
+       <Text style={{color:"#DB4437",    fontSize: 24,
+     fontWeight: 'bold',
+     marginBottom: 16,}}>e</Text>
+       <Text style={styles.header}> Books</Text>
+     
     
-   
-      </View>
-   
-      <View style={styles.searchContainer}>
-        <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} onSearchPress={handleSearch} />
-      </View>
-      <FlatList
-        ref={flatListRef} 
-        data={state.books}
-        keyExtractor={(item) => item.id}
-        renderItem={bookList}
-        numColumns={1}
-        ListFooterComponent={
-          loading ? (
-            <ActivityIndicator size="small" color="#007bff" />
-          ) : state.books.length > 0 ? (
-            <LoadMoreButton loading={loading} onPress={handleLoadMore} />
-          ) : null
-        } 
-      />
-    </SafeAreaView>
+       </View>
+    
+       <View style={styles.searchContainer}>
+         <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} onSearchPress={handleSearch} />
+       </View>
+       <FlatList
+         ref={flatListRef} 
+         data={state.books}
+         keyExtractor={(item) => item.id}
+         renderItem={bookList}
+         numColumns={1}
+         ListFooterComponent={
+           loading ? (
+             <ActivityIndicator size="small" color="#007bff" />
+           ) : state.books.length > 0 ? (
+             <LoadMoreButton loading={loading} onPress={handleLoadMore} />
+           ) : null
+         } 
+       />
+     </SafeAreaView>
+   </Provider>
   );
 };
 
