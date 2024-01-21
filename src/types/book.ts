@@ -89,5 +89,5 @@ type SearchBookType = {
 };
 type RootStackParamList = {
   SearchScreen: undefined;
-  SingleBookScreen: { book: Book };
+  SingleBookScreen: {book: Book};
 };

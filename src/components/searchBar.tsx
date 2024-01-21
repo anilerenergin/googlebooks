@@ -16,7 +16,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <>
       <TextInput
         style={styles.searchInput}
-        placeholder="Find a book"
+        placeholder='Find a book'
         value={searchTerm}
         onChangeText={onSearchChange}
       />
@@ -28,24 +28,24 @@ const SearchBar: React.FC<SearchBarProps> = ({
 };
 
 const styles = StyleSheet.create({
-    searchInput: {
-        flex: 1,
-        backgroundColor: '#fff',
-        padding: 8,
-        borderRadius: 8,
-        marginRight: 8,
-      },
-      searchButton: {
-        backgroundColor: '#007bff',
-        padding: 8,
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      searchButtonText: {
-        color: '#fff',
-        fontWeight: 'bold',
-      },
+  searchInput: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 8,
+    borderRadius: 8,
+    marginRight: 8,
+  },
+  searchButton: {
+    backgroundColor: '#007bff',
+    padding: 8,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  searchButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
 });
 
 export default SearchBar;
